@@ -1,0 +1,54 @@
+[app]
+    appEnv                = "default"
+    serviceName           = "loan-app"
+    hostname              = "loan-app.roguexray007.com"
+    port                  = ":9400"
+    metricPort            = ":8001"
+    shutdownTimeout       = 60
+    shutdownDelay         = 10
+    gitCommitHash         = "nil"
+    debug                 = false
+
+[db]
+    [db.master]
+        dialect               = "mysql"
+        protocol              = "tcp"
+        url                   = "127.0.0.1"
+        port                  = "3306"
+        username              = "loan_app"
+        password              = "loan_app"
+        sslMode               = "require"
+        name                  = "loan_app"
+        maxOpenConnections    = 50
+        maxIdleConnections    = 50
+        connectionMaxLifetime = 0
+    [db.replica]
+        dialect               = "mysql"
+        protocol              = "tcp"
+        url                   = "127.0.0.1"
+        port                  = "3306"
+        username              = "loan_app"
+        password              = "loan_app"
+        sslMode               = "require"
+        name                  = "loan_app"
+        maxOpenConnections    = 50
+        maxIdleConnections    = 50
+        connectionMaxLifetime = 0
+
+[discourse]
+    host = "https://meta.discourse.org"
+    timeout = "30s"
+    keepAliveTimeout = "600s"
+    maxIdleConnections = 100
+    httpClientName = "api"
+    httpretryattempts = 3
+    httpretrywindow = "60ms"
+    httpmaxjitterinterval = "2ms"
+    [api.httpclient.resiliency]
+        maxconcurrentrequests = 100
+        requestvolumethreshold = 20
+        circuitbreakersleepwindow = 5000
+        errorpercentthreshold = 50
+        circuitbreakertimeout = 10000
+    [api.httpclient.httpclient]
+        timeout = "30s"

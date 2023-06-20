@@ -1,0 +1,34 @@
+[app]
+    appEnv                = "dev"
+    serviceName           = "loan-app"
+    hostname              = "localhost"
+    port                  = ":9400"
+    metricPort            = ":8001"
+    shutdownTimeout       = 60
+    shutdownDelay         = 10
+    gitCommitHash         = "nil"
+    debug                 = false
+
+[db]
+    [db.master]
+        dialect               = "mysql"
+        protocol              = "tcp"
+        url                   = "127.0.0.1"
+        port                  = "3306"
+        username              = "root"
+        password              = "kunalsikri"
+        name                  = "loan-app"
+        maxOpenConnections    = 5
+        maxIdleConnections    = 1
+        connectionMaxLifetime = 0
+    [db.replica]
+        dialect               = "mysql"
+        protocol              = "tcp"
+        url                   = "127.0.0.1"
+        port                  = "3306"
+        username              = "root"
+        password              = "kunalsikri"
+        name                  = "loan-app"
+        maxOpenConnections    = 5
+        maxIdleConnections    = 1
+        connectionMaxLifetime = 0
