@@ -30,20 +30,27 @@ func (c Core) Create(ctx context.Context, input interface{}) (interface{}, error
 	}
 	loan.MarkPending()
 
-	err := c.repo.Create(ctx, &loan)
-	if err != nil {
-		return nil, err
-	}
+	err := c.repo.Transaction(ctx, func(ctx context.Context) error {
+		err := c.repo.Create(ctx, &loan)
+		if err != nil {
+			return err
+		}
 
-	loanPayments, err := payments.GetCore().CreateScheduledPaymentsForLoan(ctx, &dtos.LoanPaymentRequest{
-		Amount: loan.Amount,
-		Terms:  loan.Terms,
-		LoanID: loan.ID,
+		loanPayments, err := payments.GetCore().CreateScheduledPaymentsForLoan(ctx, &dtos.LoanPaymentRequest{
+			Amount: loan.Amount,
+			Terms:  loan.Terms,
+			LoanID: loan.ID,
+		})
+		if err != nil {
+			return err
+		}
+		loan.LoanPayments = loanPayments
+
+		return nil
 	})
 	if err != nil {
 		return nil, err
 	}
-	loan.LoanPayments = loanPayments
 
 	return &loan, nil
 }

@@ -22,4 +22,5 @@ type ILoanRepo interface {
 	Create(ctx context.Context, receiver base.IModel) error
 	Update(ctx context.Context, receiver base.IModel, selectiveList ...string) error
 	FindByID(ctx context.Context, receiver base.IModel, id int64) error
+	Transaction(ctx context.Context, fc func(ctx context.Context) error) error
 }
