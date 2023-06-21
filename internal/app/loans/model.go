@@ -12,10 +12,11 @@ const (
 
 type Loan struct {
 	base.Model
-	UserID int64  `json:"user_id"`
-	Amount int64  `json:"amount"`
-	Terms  int    `json:"terms"`
-	Status string `json:"status"`
+	UserID    int64  `json:"user_id"`
+	Amount    int64  `json:"amount"`
+	Terms     int    `json:"terms"`
+	TermsPaid int    `json:"terms_paid"`
+	Status    string `json:"status"`
 
 	LoanPayments []*payments.LoanPayment `json:"loanPayments" gorm:"foreignKey:loan_id"`
 }

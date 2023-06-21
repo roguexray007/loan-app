@@ -25,6 +25,7 @@ func (c Core) Create(ctx context.Context, input interface{}) (interface{}, error
 		Pass:     userCreateInput.Pass, // currently no storing hash or encrypting the pass
 	}
 
+	//TODO: add deduplication check before creating a user
 	err := c.repo.Create(ctx, &user)
 
 	if err != nil {

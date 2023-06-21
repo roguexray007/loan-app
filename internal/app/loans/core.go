@@ -24,9 +24,10 @@ func (c Core) Create(ctx context.Context, input interface{}) (interface{}, error
 	tnt := tenant.From(ctx)
 
 	loan := Loan{
-		UserID: tnt.User().GetID(),
-		Amount: loanCreateInput.Amount,
-		Terms:  loanCreateInput.Terms,
+		UserID:    tnt.User().GetID(),
+		Amount:    loanCreateInput.Amount,
+		Terms:     loanCreateInput.Terms,
+		TermsPaid: 0,
 	}
 	loan.MarkPending()
 

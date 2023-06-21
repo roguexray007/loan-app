@@ -17,6 +17,7 @@ func upLoan(tx *sql.Tx) error {
 		amount BIGINT NOT NULL,
 		terms int DEFAULT NULL,
 		status varchar(40) DEFAULT NULL,
+		terms_paid int DEFAULT NULL,
 		created_at int NOT NULL,
 		updated_at int NOT NULL
 	);`)
