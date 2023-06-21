@@ -15,4 +15,8 @@ func (api *API) Init(ctx context.Context) {
 		provider.Config,
 		provider.Database,
 	})
+
+	registerDefaultHandlers()
+	registerApplicationHandler()
+	serve(ctx)
 }

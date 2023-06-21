@@ -1,5 +1,4 @@
 //go:build boot
-// +build boot
 
 package main
 
