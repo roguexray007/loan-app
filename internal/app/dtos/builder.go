@@ -36,6 +36,10 @@ func GetRequestBuilder(builderType enum.BuilderType) IRequestBuilder {
 		return &LoanPaymentCreateRequest{}
 	case enum.LoanPaymentRequest:
 		return &LoanPaymentRequest{}
+	case enum.LoanFetchMultipleRequest:
+		return &LoanFetchMultipleRequest{}
+	case enum.LoanApproveRequest:
+		return &LoanApproveRequest{}
 	default:
 		return nil
 	}

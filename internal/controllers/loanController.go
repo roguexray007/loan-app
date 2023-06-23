@@ -38,3 +38,37 @@ func (controller *LoanV1) CreateLoan(ctx *gin.Context) (interface{}, error, int)
 
 	return response, nil, http.StatusOK
 }
+
+func (controller *LoanV1) FetchLoans(ctx *gin.Context) (interface{}, error, int) {
+	fetchLoans := dtos.GetRequestBuilder(enum.LoanFetchMultipleRequest)
+	err := fetchLoans.Build(ctx)
+
+	if err != nil {
+		return nil, err, http.StatusBadRequest
+	}
+
+	response, ierr := controller.loanService.FetchLoans(ctx.Request.Context(), fetchLoans)
+
+	if ierr != nil {
+		return nil, ierr, http.StatusBadRequest
+	}
+
+	return response, nil, http.StatusOK
+}
+
+func (controller *LoanV1) ApproveLoan(ctx *gin.Context) (interface{}, error, int) {
+	fetchLoans := dtos.GetRequestBuilder(enum.LoanApproveRequest)
+	err := fetchLoans.Build(ctx)
+
+	if err != nil {
+		return nil, err, http.StatusBadRequest
+	}
+
+	response, ierr := controller.loanService.ApproveLoan(ctx.Request.Context(), fetchLoans)
+
+	if ierr != nil {
+		return nil, ierr, http.StatusBadRequest
+	}
+
+	return response, nil, http.StatusOK
+}

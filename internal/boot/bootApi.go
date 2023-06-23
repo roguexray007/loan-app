@@ -14,6 +14,8 @@ func (api *API) Init(ctx context.Context) {
 	api.base.init(ctx, []string{
 		provider.Config,
 		provider.Database,
+		provider.Redis,
+		provider.Mutex,
 	})
 
 	registerDefaultHandlers()

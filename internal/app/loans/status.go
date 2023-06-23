@@ -1,5 +1,6 @@
 package loans
 
 const (
-	Pending = "pending"
+	Pending  = "pending"
+	Approved = "approved"
 )

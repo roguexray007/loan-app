@@ -22,6 +22,18 @@ var loanRoutes = Route{
 			path.PathAuthPrivate,
 			controllers.LoanService.CreateLoan,
 		},
+		{
+			http.MethodGet,
+			"",
+			path.PathAuthPrivate,
+			controllers.LoanService.FetchLoans,
+		},
+		{
+			http.MethodPost,
+			"/approve",
+			path.PathAuthAdmin,
+			controllers.LoanService.ApproveLoan,
+		},
 	},
 }
 

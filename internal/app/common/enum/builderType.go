@@ -8,6 +8,8 @@ const (
 	UserCreateRequest
 	LoanPaymentCreateRequest
 	LoanPaymentRequest
+	LoanFetchMultipleRequest
+	LoanApproveRequest
 
 	// Responses
 )

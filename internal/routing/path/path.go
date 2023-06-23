@@ -35,7 +35,7 @@ func (ep *Endpoint) IsPublic() bool {
 
 func (ep *Endpoint) Authenticate(gctx *gin.Context) error {
 	if ep.IsAdmin() {
-		//return (&Admin{Path: ep}).Request(gctx.Request)
+		return (&Admin{path: ep}).Request(gctx.Request)
 	}
 	return (&Authenticate{path: ep}).Request(gctx.Request)
 }

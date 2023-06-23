@@ -38,6 +38,11 @@ func (t *Tenant) SetUser(user user) *Tenant {
 	return t
 }
 
+func (t *Tenant) SetAdmin(admin admin) *Tenant {
+	t.admin = admin
+	return t
+}
+
 func (t *Tenant) SetTenantType(val TntType) *Tenant {
 	t.tntType = val
 	return t
@@ -47,8 +52,16 @@ func (t *Tenant) IsUser() bool {
 	return t.tntType == UserType
 }
 
+func (t *Tenant) IsAdmin() bool {
+	return t.tntType == AdminType
+}
+
 func (t *Tenant) User() user {
 	return t.user
+}
+
+func (t *Tenant) Admin() admin {
+	return t.admin
 }
 
 func Attach(ctx context.Context, tnt *Tenant) (context.Context, error) {

@@ -10,6 +10,7 @@ import (
 	"github.com/roguexray007/loan-app/internal/constants"
 	"github.com/roguexray007/loan-app/pkg/container"
 	"github.com/roguexray007/loan-app/pkg/db"
+	mutexClient "github.com/roguexray007/loan-app/pkg/mutex"
 )
 
 // Fields type, used to pass to `WithFields`.
@@ -49,6 +50,13 @@ func GetDatabase(_ context.Context) *db.Connections {
 		return value.(*db.Connections)
 	}
 
+	return nil
+}
+
+func GetMutex(_ context.Context) *mutexClient.Client {
+	if value, ok := container.Get(Mutex); ok {
+		return value.(*mutexClient.Client)
+	}
 	return nil
 }
 

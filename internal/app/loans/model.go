@@ -6,8 +6,9 @@ import (
 )
 
 const (
-	TableLoan  = "loans"
-	EntityLoan = "loan"
+	TableLoan       = "loans"
+	EntityLoan      = "loan"
+	AttributeUserID = "user_id"
 )
 
 type Loan struct {
@@ -34,6 +35,15 @@ func (l *Loan) EntityName() string {
 func (l *Loan) MarkPending() *Loan {
 	l.Status = Pending
 	return l
+}
+
+func (l *Loan) MarkApproved() *Loan {
+	l.Status = Approved
+	return l
+}
+
+func (l *Loan) IsApproved() bool {
+	return l.Status == Approved
 }
 
 type ILoan interface {

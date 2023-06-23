@@ -7,6 +7,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 
+	"github.com/roguexray007/loan-app/internal/routing/tenant"
 	"github.com/roguexray007/loan-app/pkg/db"
 )
 
@@ -24,7 +25,13 @@ func NewRepo(dbConnections *db.Connections) Repo {
 // FindByID fetches the record which matches the ID provided from the entity defined by receiver
 // and the result will be loaded into receiver
 func (repo Repo) FindByID(ctx context.Context, receiver IModel, id int64) error {
-	q := repo.GetConnection(ctx).Where("id = ?", id).First(receiver)
+	q := repo.GetConnection(ctx).Where("id = ?", id)
+	tnt := tenant.From(ctx)
+	if tnt.IsUser() {
+		q.Where("user_id = ?", tnt.User().GetID())
+	}
+
+	q = q.First(receiver)
 
 	return GetDBError(q)
 }

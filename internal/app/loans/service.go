@@ -25,3 +25,23 @@ func (s *Service) Create(ctx context.Context, input interface{}) (interface{}, e
 
 	return response, nil
 }
+
+func (s *Service) FetchLoans(ctx context.Context, input interface{}) (interface{}, error) {
+	response, err := s.Core.FetchLoans(ctx, input)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (s *Service) ApproveLoan(ctx context.Context, input interface{}) (interface{}, error) {
+	response, err := s.Core.ApproveLoan(ctx, input)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
