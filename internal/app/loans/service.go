@@ -45,3 +45,13 @@ func (s *Service) ApproveLoan(ctx context.Context, input interface{}) (interface
 
 	return response, nil
 }
+
+func (s *Service) PayLoan(ctx context.Context, input interface{}) (interface{}, error) {
+	response, err := s.Core.PayLoan(ctx, input)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

@@ -2,6 +2,7 @@ package payments
 
 import (
 	"context"
+	"fmt"
 	"math"
 	"time"
 
@@ -72,7 +73,35 @@ func (c *Core) CreateScheduledPaymentsForLoan(ctx context.Context, input interfa
 	return loanPayments, nil
 }
 
+func (c Core) MarkAsPaid(ctx context.Context, input interface{}) (*LoanPayment, error) {
+	loanMarkAsPaidInput := input.(*dtos.LoanMarkAsPaidRequest)
+
+	var loanPayment LoanPayment
+	err := c.repo.FindByLoanIDAndSeqNo(ctx, &loanPayment, loanMarkAsPaidInput.LoanID, loanMarkAsPaidInput.SequenceNo)
+	if err != nil {
+		return nil, err
+	}
+
+	if loanPayment.IsPaid() {
+		return nil, fmt.Errorf("loan payment already paid for seq %s", loanPayment.SequenceNo)
+	}
+
+	if loanPayment.Amount != loanMarkAsPaidInput.Amount {
+		return nil, fmt.Errorf("incorrect loan payment amount")
+	}
+
+	(&loanPayment).MarkPaid()
+
+	err = c.repo.Update(ctx, &loanPayment)
+	if err != nil {
+		return nil, err
+	}
+
+	return &loanPayment, nil
+}
+
 type ILoanPaymentCore interface {
 	Create(ctx context.Context, input interface{}) (*LoanPayment, error)
 	CreateScheduledPaymentsForLoan(ctx context.Context, input interface{}) ([]*LoanPayment, error)
+	MarkAsPaid(ctx context.Context, input interface{}) (*LoanPayment, error)
 }

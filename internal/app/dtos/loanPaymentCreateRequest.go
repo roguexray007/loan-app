@@ -36,3 +36,19 @@ func (lcr *LoanPaymentRequest) Build(ctx *gin.Context) error {
 
 	return nil
 }
+
+type LoanMarkAsPaidRequest struct {
+	Amount     int64 `json:"amount"`
+	SequenceNo int   `json:"sequence_no"`
+	LoanID     int64 `json:"loan_id"`
+}
+
+func (lcr *LoanMarkAsPaidRequest) Build(ctx *gin.Context) error {
+	err := ctx.ShouldBindJSON(lcr)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

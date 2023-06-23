@@ -32,6 +32,15 @@ func (l *LoanPayment) MarkPending() *LoanPayment {
 	return l
 }
 
+func (l *LoanPayment) IsPaid() bool {
+	return l.Status == Paid
+}
+
+func (l *LoanPayment) MarkPaid() *LoanPayment {
+	l.Status = Paid
+	return l
+}
+
 type ILoanPayment interface {
 	GetID() int64
 }

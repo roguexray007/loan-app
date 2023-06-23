@@ -40,6 +40,8 @@ func GetRequestBuilder(builderType enum.BuilderType) IRequestBuilder {
 		return &LoanFetchMultipleRequest{}
 	case enum.LoanApproveRequest:
 		return &LoanApproveRequest{}
+	case enum.LoanPayRequest:
+		return &LoanPayRequest{}
 	default:
 		return nil
 	}

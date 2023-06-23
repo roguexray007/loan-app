@@ -10,6 +10,7 @@ const (
 	LoanPaymentRequest
 	LoanFetchMultipleRequest
 	LoanApproveRequest
+	LoanPayRequest
 
 	// Responses
 )

@@ -57,14 +57,31 @@ func (controller *LoanV1) FetchLoans(ctx *gin.Context) (interface{}, error, int)
 }
 
 func (controller *LoanV1) ApproveLoan(ctx *gin.Context) (interface{}, error, int) {
-	fetchLoans := dtos.GetRequestBuilder(enum.LoanApproveRequest)
-	err := fetchLoans.Build(ctx)
+	approveLoan := dtos.GetRequestBuilder(enum.LoanApproveRequest)
+	err := approveLoan.Build(ctx)
 
 	if err != nil {
 		return nil, err, http.StatusBadRequest
 	}
 
-	response, ierr := controller.loanService.ApproveLoan(ctx.Request.Context(), fetchLoans)
+	response, ierr := controller.loanService.ApproveLoan(ctx.Request.Context(), approveLoan)
+
+	if ierr != nil {
+		return nil, ierr, http.StatusBadRequest
+	}
+
+	return response, nil, http.StatusOK
+}
+
+func (controller *LoanV1) PayLoan(ctx *gin.Context) (interface{}, error, int) {
+	payLoan := dtos.GetRequestBuilder(enum.LoanPayRequest)
+	err := payLoan.Build(ctx)
+
+	if err != nil {
+		return nil, err, http.StatusBadRequest
+	}
+
+	response, ierr := controller.loanService.PayLoan(ctx.Request.Context(), payLoan)
 
 	if ierr != nil {
 		return nil, ierr, http.StatusBadRequest

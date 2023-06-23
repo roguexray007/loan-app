@@ -42,8 +42,21 @@ func (l *Loan) MarkApproved() *Loan {
 	return l
 }
 
+func (l *Loan) MarkPaid() *Loan {
+	l.Status = Paid
+	return l
+}
+
 func (l *Loan) IsApproved() bool {
 	return l.Status == Approved
+}
+
+func (l *Loan) IsPaid() bool {
+	return l.Status == Paid
+}
+
+func (l *Loan) IsPending() bool {
+	return l.Status == Pending
 }
 
 type ILoan interface {
