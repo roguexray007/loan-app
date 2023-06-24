@@ -21,22 +21,22 @@ import (
 )
 
 var (
-	ginEngine   *gin.Engine
 	loanService *loans.Service
 	userService *users.Service
 )
 
-func registerDefaultHandlers() {
+func registerDefaultHandlers() *gin.Engine {
 	// initialize default router
-	ginEngine = router.Initialize()
+	ginEngine := router.Initialize()
+	return ginEngine
 }
 
-func registerApplicationHandler() {
+func RegisterApplicationHandler(engine *gin.Engine) {
 	initializeServices()
 	controllers.NewLoanController(loanService)
 	controllers.NewUserController(userService)
 	// Initialise application routes
-	router.InitializeApplicationRoutes(ginEngine)
+	router.InitializeApplicationRoutes(engine)
 }
 
 func initializeServices() {
@@ -75,7 +75,7 @@ func createUserCore() users.IUserCore {
 	return userCore
 }
 
-func serve(ctx context.Context) {
+func serve(ctx context.Context, ginEngine *gin.Engine) {
 
 	// Listen to port
 	listener, err := net.Listen("tcp4", provider.GetConfig(ctx).App.Port)

@@ -32,6 +32,7 @@ type contextKey int
 const (
 	// used to set the db instance in context in case of transactions
 	ContextKeyDatabase contextKey = iota
+	ContextKeyDatabaseConnection
 )
 
 var (
@@ -191,4 +192,9 @@ func (db *DB) connect(driver *sql.DB) error {
 // on create & update in specific way.
 func (db *DB) registerCallbacks() {
 	replaceGormCallbacks(db)
+}
+
+func (db *DB) SetInstance(gormDb *gorm.DB) *DB {
+	db.instance = gormDb
+	return db
 }

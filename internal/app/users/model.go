@@ -1,4 +1,4 @@
-package loans
+package users
 
 import "github.com/roguexray007/loan-app/internal/app/base"
 

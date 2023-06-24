@@ -7,7 +7,7 @@
     shutdownTimeout       = 60
     shutdownDelay         = 10
     gitCommitHash         = "nil"
-    debug                 = false
+    debug                 = true
 
 [db]
     [db.master]
@@ -21,6 +21,7 @@
         maxOpenConnections    = 5
         maxIdleConnections    = 1
         connectionMaxLifetime = 0
+        debug = true
     [db.replica]
         dialect               = "mysql"
         protocol              = "tcp"
@@ -32,6 +33,7 @@
         maxOpenConnections    = 5
         maxIdleConnections    = 1
         connectionMaxLifetime = 0
+        debug = true
 
 [redis]
     host              = "localhost"

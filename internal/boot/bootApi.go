@@ -18,7 +18,7 @@ func (api *API) Init(ctx context.Context) {
 		provider.Mutex,
 	})
 
-	registerDefaultHandlers()
-	registerApplicationHandler()
-	serve(ctx)
+	router := registerDefaultHandlers()
+	RegisterApplicationHandler(router)
+	serve(ctx, router)
 }

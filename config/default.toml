@@ -35,20 +35,9 @@
         maxIdleConnections    = 50
         connectionMaxLifetime = 0
 
-[discourse]
-    host = "https://meta.discourse.org"
-    timeout = "30s"
-    keepAliveTimeout = "600s"
-    maxIdleConnections = 100
-    httpClientName = "api"
-    httpretryattempts = 3
-    httpretrywindow = "60ms"
-    httpmaxjitterinterval = "2ms"
-    [api.httpclient.resiliency]
-        maxconcurrentrequests = 100
-        requestvolumethreshold = 20
-        circuitbreakersleepwindow = 5000
-        errorpercentthreshold = 50
-        circuitbreakertimeout = 10000
-    [api.httpclient.httpclient]
-        timeout = "30s"
+[redis]
+    host              = "localhost"
+    port              = 6379
+    password          = ""
+    database          = 0
+    dialect           = "redis"

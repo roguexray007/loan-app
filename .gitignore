@@ -9,3 +9,5 @@
 
 # App Binaries.
 bin/*
+
+config/dev.toml

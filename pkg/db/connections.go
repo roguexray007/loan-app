@@ -11,8 +11,6 @@ import (
 const (
 	Master  = "master"
 	Replica = "replica"
-
-	ContextKeyDatabaseConnection contextKey = iota
 )
 
 type ConnectionsConfig struct {
@@ -72,7 +70,7 @@ func NewConnections(c *ConnectionsConfig, args ...interface{}) (*Connections, er
 	return dbConnections, nil
 }
 
-func (c Connections) getDbByConnectionName(name string) *DB {
+func (c Connections) GetDbByConnectionName(name string) *DB {
 	switch name {
 	case Master:
 		return c.master
@@ -102,7 +100,7 @@ func (c Connections) GetConnection(ctx context.Context, args ...interface{}) *go
 		}
 	}
 
-	database = c.getDbByConnectionName(connection)
+	database = c.GetDbByConnectionName(connection)
 
 	if database == nil {
 		database = c.master
@@ -121,7 +119,7 @@ func (c Connections) Destroy() error {
 	v := reflect.ValueOf(c)
 
 	for i := 0; i < v.NumField(); i++ {
-		db := c.getDbByConnectionName(v.Type().Field(i).Name)
+		db := c.GetDbByConnectionName(v.Type().Field(i).Name)
 
 		if db == nil {
 			continue
