@@ -93,4 +93,5 @@ func (s *LoanSuite) TestLoanFlow() {
     4. fail when loan is in pending state and user is trying to pay.
 	5. validation failures
     6. loan_id not found in db
+	7. fetch loans
 */
