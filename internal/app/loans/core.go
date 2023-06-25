@@ -104,8 +104,12 @@ func (c Core) ApproveLoan(ctx context.Context, input interface{}) (*Loan, error)
 		return &loan, nil
 	}
 
+	if loan.IsPaid() {
+		return nil, fmt.Errorf("can't move loan from paid to approve state")
+	}
+
 	(&loan).MarkApproved()
-	err = c.repo.Update(ctx, &loan)
+	err = c.repo.Update(ctx, &loan, "status")
 	if err != nil {
 		return nil, err
 	}
